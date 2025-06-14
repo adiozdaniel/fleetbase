@@ -13,7 +13,7 @@ services:
       - "3307:3306"
     volumes:
       - "./docker/database/:/docker-entrypoint-initdb.d/"
-      - "/home/myna/fleetbase-mysql:/var/lib/mysql"
+      - "/home/fleetbase/fleetbase-mysql:/var/lib/mysql"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: "fleetbase"
@@ -75,7 +75,7 @@ services:
     image: fleetbase/fleetbase-api:latest
     volumes:
       - ./api/.env:/fleetbase/api/.env
-      - /home/myna/fleetbase-uploads:/fleetbase/api/storage/app/public/uploads
+      - /home/fleetbase/fleetbase-uploads:/fleetbase/api/storage/app/public/uploads
     environment:
       ENVIRONMENT: development
       DATABASE_URL: "mysql://root@database/fleetbase"
