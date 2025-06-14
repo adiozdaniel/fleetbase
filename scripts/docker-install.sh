@@ -117,7 +117,7 @@ echo "✔  $CONFIG_PATH updated"
 # 7. Start stack, wait for DB, then run deploy
 ###############################################################################
 echo "⏳  Starting Fleetbase containers..."
-docker compose up -d
+docker-compose up -d
 
 ###############################################################################
 # 7a. Wait for the database container to be ready
@@ -162,7 +162,7 @@ echo "✔  Database is ready."
 ###############################################################################
 echo "⏳  Running deploy script inside the application container..."
 docker compose exec application bash -c "./deploy.sh"
-docker compose up -d
+docker-compose up -d
 
 echo
 echo "🏁  Fleetbase is up!"
