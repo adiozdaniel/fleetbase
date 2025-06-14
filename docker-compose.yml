@@ -10,10 +10,10 @@ services:
   database:
     image: mysql:8.0-oracle
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - "./docker/database/:/docker-entrypoint-initdb.d/"
-      - "./docker/database/mysql:/var/lib/mysql"
+      - "/home/myna/fleetbase-mysql:/var/lib/mysql"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: "fleetbase"
@@ -61,8 +61,8 @@ services:
       CACHE_URL: tcp://cache
       REDIS_URL: tcp://cache
     depends_on:
-        - database
-        - cache
+      - database
+      - cache
 
   console:
     image: fleetbase/fleetbase-console:latest
@@ -75,6 +75,7 @@ services:
     image: fleetbase/fleetbase-api:latest
     volumes:
       - ./api/.env:/fleetbase/api/.env
+      - /home/myna/fleetbase-uploads:/fleetbase/api/storage/app/public/uploads
     environment:
       ENVIRONMENT: development
       DATABASE_URL: "mysql://root@database/fleetbase"
@@ -89,7 +90,7 @@ services:
       APP_NAME: Fleetbase
       LOG_CHANNEL: daily
       REGISTRY_HOST: https://registry.fleetbase.io
-      REGISTRY_PREINSTALLED_EXTENSIONS: 'true'
+      REGISTRY_PREINSTALLED_EXTENSIONS: "true"
       OSRM_HOST: https://router.project-osrm.org
     depends_on:
       - database
